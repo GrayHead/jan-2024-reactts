@@ -14,10 +14,7 @@ const Product: FC<IProps> = ({id: {id}}) => {
     useEffect(() => {
         getProductById(id)
             .then((value) => {
-
-
                 setProduct(value.data);
-
             });
 
     }, [id]);
