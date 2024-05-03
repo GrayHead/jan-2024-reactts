@@ -15,16 +15,16 @@ const Product: FC<IProps> = ({id: {id}}) => {
         getProductById(id)
             .then((value) => {
 
-                console.log(value);
+
                 setProduct(value.data);
 
             });
 
-    }, []);
+    }, [id]);
     return (
         <>
             {
-                product && <div>{product.brand}</div>
+                product && <div>{product.title}</div>
             }
         </>
     );

@@ -7,7 +7,7 @@ interface IProps {
 }
 
 const Products: FC<IProps> = ({items: productsId}) => {
-
+    console.log(productsId);
     return (
         <div>
 

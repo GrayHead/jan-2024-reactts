@@ -10,7 +10,8 @@ const App = () => {
     const [products, setProducts] = useState<ProductModel[]>([])
 
     const getProductsFromCart = (products: ProductModel[]) => {
-        setProducts(products);
+        console.log(products);
+        setProducts([...products]);
     }
     return (
         <div>
