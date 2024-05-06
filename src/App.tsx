@@ -7,11 +7,12 @@ const App = () => {
     const [counter, setCounter] = useState<number>(0);
     let [x, setX] = useState<number>(0);
     useEffect(() => {
-        setTimeout(() => {
+        let id = setInterval(() => {
             setCounter(counter + 1);
         }, 2000);
         return () => {
             console.log('...useEffect return cb');
+            clearInterval(id);
         }
     }, [x]);
     console.log('.');
