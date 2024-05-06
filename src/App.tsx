@@ -10,6 +10,9 @@ const App = () => {
         setTimeout(() => {
             setCounter(counter + 1);
         }, 2000);
+        return () => {
+            console.log('...useEffect return cb');
+        }
     }, [x]);
     console.log('.');
 
