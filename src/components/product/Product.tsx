@@ -9,7 +9,7 @@ interface IProps {
 
 const Product: FC<IProps> = ({id: {id}}) => {
 
-    const [product, setProduct] = useState<FullProductModel>(null);
+    const [product, setProduct] = useState<FullProductModel | null>(null);
 
     useEffect(() => {
         getProductById(id)
