@@ -1,4 +1,4 @@
-import React, {FC, memo, useCallback, useState} from 'react';
+import React, {FC, memo, useCallback, useMemo, useState} from 'react';
 import './App.css';
 
 const A: FC<any> = memo(({foobar}) => {
@@ -12,12 +12,15 @@ const App = () => {
     const [counter, setCounter] = useState(0);
     const foobar = useCallback(() => {
         //....
-    }, [counter]);
+    }, []);
 
+    const arr = useMemo(() => {
+        return [];
+    }, []);
 
     return (
         <div>
-            <A foobar={foobar}/>
+            <A foobar={foobar} arr={arr}/>
 
             <button onClick={() => {
                 setCounter(counter + 1);
