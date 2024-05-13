@@ -1,36 +1,27 @@
-import React, {FC, FormEvent, useState} from 'react';
+import React, {FC} from 'react';
+import {useForm} from "react-hook-form";
 
 interface IFormProps {
-    username: string;
-    password: string;
+    username: string,
+    age: number
+    password: string,
 }
 
 const FormComponent: FC = () => {
+    let formObj = useForm<IFormProps>();
+    let {register, handleSubmit} = formObj;
 
-    const [formState, setFormState] = useState<IFormProps>({
-        username: 'default',
-        password: 'default'
-    });
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        let user = {
-            username: formState.username,
-            password: formState.password,
-        }
-        console.log(user);
 
+    const save = (formValues: IFormProps) => {
+        console.log(formValues);
     };
 
-
-    const handleChange = (e: FormEvent<HTMLInputElement>) => {
-        let input = e.currentTarget;
-        setFormState({...formState, [input.name]: input.value});
-    }
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name={'username'} value={formState.username} onChange={handleChange}/>
-                <input type="text" name={'password'} value={formState.password} onChange={handleChange}/>
+            <form onSubmit={handleSubmit(save)}>
+                <input type="text"  {...register('username')}/>
+                <input type="number"  {...register('age')}/>
+                <input type="text"  {...register('password')}/>
                 <button>save</button>
             </form>
         </div>
