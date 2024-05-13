@@ -1,5 +1,7 @@
 import React, {FC} from 'react';
 import {useForm} from "react-hook-form";
+import {joiResolver} from "@hookform/resolvers/joi";
+import {userValidator} from "../validators/user.validator";
 
 interface IFormProps {
     username: string,
@@ -11,8 +13,8 @@ const FormComponent: FC = () => {
     let {
         register,
         handleSubmit,
-        formState: {errors}
-    } = useForm<IFormProps>();
+        formState: {errors, isValid}
+    } = useForm<IFormProps>({mode: "all", resolver: joiResolver(userValidator)});
 
 
     const save = (formValues: IFormProps) => {
@@ -22,27 +24,13 @@ const FormComponent: FC = () => {
     return (
         <div>
             <form onSubmit={handleSubmit(save)}>
-                <input
-                    type="text"
-                    {...register('username',
-                        {
-                            required: {
-                                value: true,
-                                message: 'this field is required'
-                            },
-                            maxLength: {
-                                value: 10,
-                                message: 'max lenght is 10'
-                            }
-
-                        }
-                    )}
-                />
-
-                {errors.username && <span>{errors.username.message}</span>}
+                <input type="text"{...register('username')}/>
+                {
+                    errors.username && <span>{errors.username.message}</span>
+                }
                 <br/>
-
                 <input type="number"  {...register('age')}/>
+                {errors.age && <span>{errors.age.message}</span>}
                 <br/>
                 <input type="text"  {...register('password')}/>
                 <br/>
