@@ -1,41 +1,41 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {useForm} from "react-hook-form";
 import {joiResolver} from "@hookform/resolvers/joi";
-import {userValidator} from "../validators/user.validator";
+import {postValidator} from "../validators/post.validator";
+import {IPostModel} from "../models/IPostModel";
+import {postService} from "../services/api.service";
 
-interface IFormProps {
-    username: string,
-    age: number
-    password: string,
+export interface IFormProps {
+    title: string,
+    body: string,
+    userId: number;
 }
 
 const FormComponent: FC = () => {
-    let {
-        register,
-        handleSubmit,
-        formState: {errors, isValid}
-    } = useForm<IFormProps>({mode: "all", resolver: joiResolver(userValidator)});
+    let {register, handleSubmit, formState: {errors, isValid}}
+        = useForm<IFormProps>({mode: "all", resolver: joiResolver(postValidator)});
+
+    const [post, setPost] = useState<IPostModel | null>(null);
 
 
-    const save = (formValues: IFormProps) => {
-        console.log(formValues);
+    const save = (post: IFormProps) => {
+        postService.savePost(post).then(value => setPost(value.data));
     };
 
     return (
         <div>
             <form onSubmit={handleSubmit(save)}>
-                <input type="text"{...register('username')}/>
-                {
-                    errors.username && <span>{errors.username.message}</span>
-                }
+                <input type="text"{...register('title')}/>
+                {errors.title && <span>{errors.title.message}</span>}
                 <br/>
-                <input type="number"  {...register('age')}/>
-                {errors.age && <span>{errors.age.message}</span>}
+                <input type="text"  {...register('body')}/>
                 <br/>
-                <input type="text"  {...register('password')}/>
+                <input type="number"  {...register('userId')}/>
                 <br/>
                 <button>save</button>
             </form>
+
+            {post && <h2> saved post {post.id} {post.title}</h2>}
         </div>
     );
 };
