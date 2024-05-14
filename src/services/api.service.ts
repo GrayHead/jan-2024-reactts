@@ -17,11 +17,11 @@ const postService = {
     getAllPosts: () => {
         return axiosInstance.get('/posts')
     },
-    savePost: ({title, userId, body}: IFormProps): Promise<AxiosResponse<IPostModel>> => {
+    savePost: (post: IFormProps): Promise<AxiosResponse<IPostModel>> => {
         return axiosInstance
             .post(
                 `/posts`,
-                {body, title, userId}
+                post
             )
     }
 }

@@ -19,7 +19,9 @@ const FormComponent: FC = () => {
 
 
     const save = (post: IFormProps) => {
-        postService.savePost(post).then(value => setPost(value.data));
+        postService
+            .savePost(post)
+            .then(value => setPost(value.data));
     };
 
     return (
