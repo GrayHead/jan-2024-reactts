@@ -1,6 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import {userApiService} from "../services/api.service";
 import {IUserModel} from "../model/IUserModel";
+import UserComponent from "./UserComponent";
 
 const UsersComponent: FC = () => {
 
@@ -10,7 +11,7 @@ const UsersComponent: FC = () => {
     }, []);
     return (
         <div>
-            {users.map(user => <div key={user.id}>{user.name}</div>)}
+            {users.map(user => <UserComponent key={user.id} user={user}/>)}
         </div>
     );
 };
