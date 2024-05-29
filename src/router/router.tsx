@@ -1,7 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
-import MainLayout from "../layout/MainLayout";
-import HomePage from "../pages/HomePage";
-import UsersComponent from "../components/UsersComponent";
+import AuthPage from "../pages/AuthPage";
+import CarsPage from "../pages/CarsPage";
+import MainLayout from "../layouts/MainLayout";
 
 
 export const routerConfig = createBrowserRouter([
@@ -9,14 +9,12 @@ export const routerConfig = createBrowserRouter([
         // /users
         path: '/',
         element: <MainLayout/>,
-        errorElement:<h1>wtf are you doing maaaaan????</h1>,
-        children: [ /*child is - Outlet in your layout*/
-            {index: true, element: <HomePage/>},
-            {path: 'users', element: <UsersComponent/>}
+        errorElement: <h1>wtf are you doing maaaaan????</h1>,
+        children: [
+            {index: true, element: <AuthPage/>},
+            {path: 'cars', element: <CarsPage/>}
         ]
     },
-
-    // {path: '/another', element: <AnotherLayout/>},
 
 
 ])
