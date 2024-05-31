@@ -1,9 +1,18 @@
-import React from 'react';
+import React, {FC} from 'react';
+import {ICarWithAuthMode} from "../models/ICarWithAuthMode";
 
-const CarsComponent = () => {
+interface IProps {
+    cars: ICarWithAuthMode[]
+}
+
+const CarsComponent: FC<IProps> = ({cars}) => {
     return (
         <div>
-            CarsComponent
+            {
+                cars.map(car => <div key={car.id}>
+                    {car.id} {car.brand}
+                </div>)
+            }
         </div>
     );
 };
