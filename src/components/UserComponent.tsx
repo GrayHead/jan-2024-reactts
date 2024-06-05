@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {IUserModel} from "../models/IUserModel";
-import {useContextProvider} from "../context/ContextProvider";
+import {useStore} from "../context/ContextProvider";
 
 interface IProps {
     user: IUserModel;
@@ -8,7 +8,7 @@ interface IProps {
 
 const UserComponent: FC<IProps> = ({user}) => {
 
-    const {userStore: {setFavoriteUser}} = useContextProvider();
+    const {userSlice: {setFavoriteUser}} = useStore();
     return (
         <div>
             {user.id} {user.name} <button onClick={()=> {

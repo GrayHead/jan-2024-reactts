@@ -1,26 +1,54 @@
-import {createContext, useContext} from "react";
 import {IUserModel} from "../models/IUserModel";
 import {IPostModel} from "../models/IPostModel";
+import {create} from "zustand";
 
 type StoreType = {
-    userStore: {
+    userSlice: {
         allUsers: IUserModel[],
+        loadUsers: (user: IUserModel[]) => void,
+
+        favoriteUser: IUserModel | null,
         setFavoriteUser: (obj: IUserModel) => void
     },
-    postStore: {
+    postSlice: {
         allPosts: IPostModel[]
     }
 }
 
-export const defaultValue: StoreType = {
-    userStore: {
-        allUsers: [],
-        setFavoriteUser:()=> {}
-    },
-    postStore: {
-        allPosts: []
-    }
-};
-export const Context = createContext<StoreType>(defaultValue);
+export const useStore = create<StoreType>()((set) => {
+    return {
+        userSlice: {
+            allUsers: [],
+            loadUsers: (users: IUserModel[]) => {
+                return set((state: StoreType) => {
+                    return {
+                        ...state,
+                        userSlice: {
+                            ...state.userSlice,
+                            allUsers: users
 
-export const useContextProvider = (): StoreType => useContext(Context);
+                        }
+                    }
+                })
+            },
+
+            favoriteUser: null,
+            setFavoriteUser: (user: IUserModel) => {
+                return set(state => {
+                    return {
+                        ...state,
+                        userSlice: {
+                            ...state.userSlice,
+                            favoriteUser: user
+                        }
+                    }
+                });
+            }
+        },
+        postSlice: {
+            allPosts: []
+        }
+    }
+
+});
+
