@@ -7,6 +7,7 @@ export const userValidator =
                 .string()
                 .pattern(/w{4,}/)
                 .required()
+                // .rule({message: 'assdfd',})
                 // .message('default')
                 .messages({
                     "string.pattern.base": "only words accepted",
